@@ -42,6 +42,7 @@ const styles = {
   }
 }
 
+// Needs refactorizing (thinking of breaking each hamburger section into different components)
 class Hamburger extends Component {
   constructor(props) {
     super(props);
@@ -49,6 +50,7 @@ class Hamburger extends Component {
     this.state = {
       burgerClick: true,
       hoverTopBurger: styles.burgerTop,
+      hoverMiddleBurger: styles.burgerMiddle,
       hoverBottomBurger: styles.burgerBottom
     }
 
@@ -97,7 +99,7 @@ class Hamburger extends Component {
           top:'3px'
         },
         hoverBottomBurger: {
-          top: '17px'
+          top: '17px',
         }
       });
     }
@@ -114,7 +116,7 @@ class Hamburger extends Component {
 
   render() {
     return (
-        <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.button}>
+        <button onClick={this.props.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.button}>
         <div style={styles.burgerContainer}>
           <div style={[styles.burger, this.state.hoverTopBurger]}></div>
           <div style={[styles.burger, this.state.hoverMiddleBurger, styles.burgerMiddle]}></div>
