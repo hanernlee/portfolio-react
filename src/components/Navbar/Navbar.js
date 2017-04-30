@@ -31,7 +31,6 @@ class Navbar extends Component {
 
     // This binding is necessary to make 'this' keyword work in the callback
     this.handleScroll = this.handleScroll.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -40,13 +39,6 @@ class Navbar extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  handleClick() {
-    console.log('here');
-    this.setState({
-      clicked: true,
-    });
   }
 
   handleScroll(event) {
@@ -64,7 +56,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav style={[styles.fixedBar, this.state.navStyle]}>
-        <Hamburger handleClick={this.handleClick} />
+        <Hamburger />
       </nav>
     );
   }

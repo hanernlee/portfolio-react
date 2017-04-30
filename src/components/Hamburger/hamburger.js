@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import LayerTop from './Layer/LayerTop';
+import LayerMiddle from './Layer/LayerMiddle';
+import LayerBottom from './Layer/LayerBottom';
 
 const styles = {
   button: {
@@ -21,24 +24,6 @@ const styles = {
     height: '22px',
     position: 'relative',
     width: '24px'
-  },
-  burger: {
-    backgroundColor: 'rgb(184, 184, 184)',
-    height: '2px',
-    left: '0px',
-    position: 'absolute',
-    transition: 'all 0.3s ease',
-    width: '24px'
-  },
-  burgerTop: {
-    top: '0px'
-  },
-  burgerMiddle: {
-    top: '10px'
-  },
-  burgerBottom: {
-    top: '20px',
-    opacity: '1'
   }
 }
 
@@ -48,10 +33,8 @@ class Hamburger extends Component {
     super(props);
 
     this.state = {
-      burgerClick: true,
-      hoverTopBurger: styles.burgerTop,
-      hoverMiddleBurger: styles.burgerMiddle,
-      hoverBottomBurger: styles.burgerBottom
+      clicked: false,
+      hover: false
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -60,67 +43,40 @@ class Hamburger extends Component {
   }
 
   handleClick() {
-    if (this.state.burgerClick) {
+    if (this.state.clicked) {
       this.setState({
-        burgerClick: false,
-        hoverTopBurger:{
-          top: '3px',
-          transform: 'translateY(7px) rotate(-45deg)'
-        },
-        hoverMiddleBurger: {
-          transform: 'rotate(45deg)'
-        },
-        hoverBottomBurger: {
-          top: '17px',
-          opacity: '0'
-        }
+        clicked: false
       });
     } else {
       this.setState({
-        burgerClick: true,
-        hoverTopBurger:{
-          top: '0px',
-        },
-        hoverMiddleBurger: {
-          transform: 'rotate(0deg)'
-        },
-        hoverBottomBurger: {
-          top: '20px',
-          opacity: '1'
-        }
+        clicked: true
       });
     }
   }
 
   onMouseOver() {
-    if (this.state.burgerClick) {
+    if (!this.state.clicked) {
       this.setState({
-        hoverTopBurger: {
-          top:'3px'
-        },
-        hoverBottomBurger: {
-          top: '17px',
-        }
+        hover: true
       });
     }
   }
 
   onMouseOut() {
-    if (this.state.burgerClick) {
+    if (!this.state.clicked) {
       this.setState({
-        hoverTopBurger: styles.burgerTop,
-        hoverBottomBurger: styles.burgerBottom
+        hover: false
       });
     }
   }
 
   render() {
     return (
-        <button onClick={this.props.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.button}>
+        <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.button}>
         <div style={styles.burgerContainer}>
-          <div style={[styles.burger, this.state.hoverTopBurger]}></div>
-          <div style={[styles.burger, this.state.hoverMiddleBurger, styles.burgerMiddle]}></div>
-          <div style={[styles.burger, this.state.hoverBottomBurger]}></div>
+          <LayerTop clickBurger={this.state.clicked} hoverBurger={this.state.hover}/>
+          <LayerMiddle clickBurger={this.state.clicked} />
+          <LayerBottom clickBurger={this.state.clicked} hoverBurger={this.state.hover}/>
         </div>
       </button>
     );
