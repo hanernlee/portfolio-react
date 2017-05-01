@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import Canvas from '../Canvas/Canvas'
+import Menu from '../Menu/Menu'
 import Hamburger from '../Hamburger/Hamburger';
-// import Menu from '../Menu/Menu';
 
 const styles = {
   fixedBar: {
@@ -26,11 +27,12 @@ class Navbar extends Component {
     //ES6 classess no longer autobind this to nonReact methods (manually bind below)
     this.state = {
       navStyle : styles.fixedBar,
-      clicked: false
+      burgerClick : false
     }
 
     // This binding is necessary to make 'this' keyword work in the callback
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,18 @@ class Navbar extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleClick() {
+    if (this.state.burgerClick) {
+      this.setState({
+        burgerClick : false
+      });
+    } else {
+      this.setState({
+        burgerClick : true
+      });
+    }
   }
 
   handleScroll(event) {
@@ -56,7 +70,9 @@ class Navbar extends Component {
   render() {
     return (
       <nav style={[styles.fixedBar, this.state.navStyle]}>
-        <Hamburger />
+        <Canvas showCanvas={this.state.burgerClick} />
+        <Menu showMenu={this.state.burgerClick} />
+        <Hamburger onClick={this.handleClick} />
       </nav>
     );
   }

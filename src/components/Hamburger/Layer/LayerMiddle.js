@@ -17,10 +17,6 @@ const styles = {
 }
 
 class LayerMiddle extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     var clickEffect = this.props.clickBurger ? styles.burgerClick : '';
 

@@ -27,7 +27,6 @@ const styles = {
   }
 }
 
-// Needs refactorizing (thinking of breaking each hamburger section into different components)
 class Hamburger extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +42,7 @@ class Hamburger extends Component {
   }
 
   handleClick() {
+    this.props.onClick();
     if (this.state.clicked) {
       this.setState({
         clicked: false
