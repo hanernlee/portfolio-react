@@ -35,13 +35,9 @@ class Hamburger extends Component {
       clicked: false,
       hover: false
     }
-
-    this.handleClick = this.handleClick.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
   }
 
-  handleClick() {
+  handleClick = () => {
     this.props.onClick();
     if (this.state.clicked) {
       this.setState({
@@ -54,7 +50,7 @@ class Hamburger extends Component {
     }
   }
 
-  onMouseOver() {
+  onMouseOver = () => {
     if (!this.state.clicked) {
       this.setState({
         hover: true
@@ -62,7 +58,7 @@ class Hamburger extends Component {
     }
   }
 
-  onMouseOut() {
+  onMouseOut = () => {
     if (!this.state.clicked) {
       this.setState({
         hover: false

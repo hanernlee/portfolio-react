@@ -29,10 +29,6 @@ class Navbar extends Component {
       navStyle : styles.fixedBar,
       burgerClick : false
     }
-
-    // This binding is necessary to make 'this' keyword work in the callback
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +39,7 @@ class Navbar extends Component {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  handleClick() {
+  handleClick = () => {
     if (this.state.burgerClick) {
       this.setState({
         burgerClick : false
@@ -55,7 +51,7 @@ class Navbar extends Component {
     }
   }
 
-  handleScroll(event) {
+  handleScroll= () => {
     if (document.body.scrollTop > 150) {
       this.setState({
         navStyle: styles.scrollBar
