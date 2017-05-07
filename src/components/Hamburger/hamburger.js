@@ -38,17 +38,15 @@ class Hamburger extends Component {
   }
 
   handleClick = () => {
-    this.props.onClick();
-    console.log(this.props.onClick());
-    // if (this.state.clicked) {
-    //   this.setState({
-    //     clicked: false
-    //   });
-    // } else {
-    //   this.setState({
-    //     clicked: true
-    //   });
-    // }
+    if (this.props.onClick()) {
+      this.setState({
+        clicked: true
+      });
+    } else {
+      this.setState({
+        clicked: false
+      });
+    }
   }
 
   onMouseOver = () => {
