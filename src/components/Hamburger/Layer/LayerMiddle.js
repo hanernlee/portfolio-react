@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 const styles = {
-  burger: {
+  base: {
     backgroundColor: 'rgb(184, 184, 184)',
     height: '2px',
     left: '0px',
@@ -21,7 +21,7 @@ class LayerMiddle extends Component {
     var clickEffect = this.props.clickBurger ? styles.burgerClick : '';
 
     return (
-      <div style={[styles.burger, clickEffect]}></div>
+      <div style={[styles.base, clickEffect]}></div>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import Sidebar from './Sidebar/Sidebar';
 
 const styles = {
-  menu: {
+  base: {
     paddingTop: '16vh',
     backgroundColor: 'rgb(255, 255, 255)',
     bottom: '0px',
@@ -33,7 +34,9 @@ class Menu extends Component {
     var menuStyle = this.props.showMenu ? styles.show : styles.hide;
 
     return (
-      <div style={[styles.menu, menuStyle]}></div>
+      <div style={[styles.base, menuStyle]}>
+        <Sidebar />
+      </div>
     );
   }
 }

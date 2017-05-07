@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 const styles = {
-  canvas: {
+  base: {
     transition: 'opacity 0.4s',
     position: 'relative',
     zIndex: '1'
@@ -29,7 +29,7 @@ class Canvas extends Component {
     var canvasStyle = this.props.showCanvas ? styles.show : styles.hide;
 
     return (
-      <div style={[canvasStyle, styles.canvas]}>
+      <div style={[canvasStyle, styles.base]}>
         <div style={styles.canvasScreen}></div>
       </div>
     );

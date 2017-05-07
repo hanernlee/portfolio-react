@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 const styles = {
-  burger: {
+  base: {
     backgroundColor: 'rgb(184, 184, 184)',
     height: '2px',
     left: '0px',
@@ -28,11 +28,11 @@ class LayerBottom extends Component {
 
     if (this.props.hoverBurger) {
       return (
-        <div style={[styles.burger, clickEffect, styles.burgerHover]}></div>
+        <div style={[styles.base, clickEffect, styles.burgerHover]}></div>
       );
     } else {
       return (
-        <div style={[styles.burger, clickEffect, styles.burgerNonHover]}></div>
+        <div style={[styles.base, clickEffect, styles.burgerNonHover]}></div>
       );
     }
   }

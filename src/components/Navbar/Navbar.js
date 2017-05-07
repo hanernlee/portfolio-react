@@ -5,13 +5,25 @@ import Menu from '../Menu/Menu'
 import Hamburger from '../Hamburger/Hamburger';
 
 const styles = {
-  fixedBar: {
+  base: {
     width: '100%',
-    height : '80px',
+    paddingLeft: '25px',
     position: 'fixed',
     transition: 'all 0.3s ease',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderBottom: '1px solid rgb(255, 255, 255)'
+    borderBottom: '1px solid rgb(255, 255, 255)',
+    height: 'inherit',
+    zIndex: '1',
+
+    '@media (min-width: 720px)': {
+      paddingLeft: '40px'
+    }
+  },
+  height: {
+    height: '60px',
+    '@media (min-width: 720px)': {
+      height: '80px',
+    }
   },
   nonScrollBar: {
     borderColor: 'rgb(255, 255, 255)'
@@ -44,15 +56,17 @@ class Navbar extends Component {
       this.setState({
         burgerClick : false
       });
+      return false;
     } else {
       this.setState({
         burgerClick : true
       });
+      return true;
     }
   }
 
   handleScroll= () => {
-    if (document.body.scrollTop > 150) {
+    if (document.body.scrollTop > 100) {
       this.setState({
         navStyle: styles.scrollBar
       });
@@ -65,11 +79,15 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav style={[styles.fixedBar, this.state.navStyle]}>
-        <Canvas showCanvas={this.state.burgerClick} />
-        <Menu showMenu={this.state.burgerClick} />
-        <Hamburger onClick={this.handleClick} />
-      </nav>
+      <div>
+        <div style={styles.height}>
+          <div style={[styles.base, this.state.navStyle]}>
+            <Canvas showCanvas={this.state.burgerClick} />
+            <Menu showMenu={this.state.burgerClick} />
+            <Hamburger onClick={this.handleClick} />
+          </div>
+        </div>
+      </div>
     );
   }
 }

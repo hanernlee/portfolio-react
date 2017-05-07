@@ -5,7 +5,7 @@ import LayerMiddle from './Layer/LayerMiddle';
 import LayerBottom from './Layer/LayerBottom';
 
 const styles = {
-  button: {
+  base: {
     backgroundColor: 'transparent',
     border: 'none',
     outline: 'none',
@@ -39,15 +39,16 @@ class Hamburger extends Component {
 
   handleClick = () => {
     this.props.onClick();
-    if (this.state.clicked) {
-      this.setState({
-        clicked: false
-      });
-    } else {
-      this.setState({
-        clicked: true
-      });
-    }
+    console.log(this.props.onClick());
+    // if (this.state.clicked) {
+    //   this.setState({
+    //     clicked: false
+    //   });
+    // } else {
+    //   this.setState({
+    //     clicked: true
+    //   });
+    // }
   }
 
   onMouseOver = () => {
@@ -68,7 +69,7 @@ class Hamburger extends Component {
 
   render() {
     return (
-        <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.button}>
+        <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.base}>
         <div style={styles.burgerContainer}>
           <LayerTop clickBurger={this.state.clicked} hoverBurger={this.state.hover}/>
           <LayerMiddle clickBurger={this.state.clicked} />
