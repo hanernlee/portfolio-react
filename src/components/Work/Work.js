@@ -6,7 +6,7 @@ const styles = {
     left:'0',
     position: 'relative',
     transition: 'left 0.4s ease-in-out',
-    backgroundColor: 'green',
+    backgroundColor: 'red',
 
     '@media (min-width: 720px)': {
       paddingBottom: '80px'
@@ -14,13 +14,13 @@ const styles = {
   }
 }
 
-class Home extends Component {
+class Work extends Component {
   render() {
 
     return (
-      <div style={styles.base}>Home</div>
+      <div style={styles.base}>Work</div>
     );
   }
 }
 
-export default Radium(Home);
+export default Radium(Work);

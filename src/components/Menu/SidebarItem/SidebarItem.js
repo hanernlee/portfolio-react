@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { BrowserRouter as Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Home from '../../Home/Home';
 
 const styles = {
@@ -11,7 +11,6 @@ const styles = {
     }
   },
   list: {
-    textDecoration:'none',
     listStyleType: 'none',
     transition: 'opacity 0.3s',
     cursor: 'pointer',
@@ -19,6 +18,9 @@ const styles = {
     ':hover': {
       opacity: '0.6'
     }
+  },
+  links: {
+    textDecoration:'none'
   },
   title: {
     color: 'rgb(48, 48, 48)',
@@ -32,13 +34,11 @@ class SidebarItem extends Component {
   render() {
     return (
         <div style={styles.base}>
-          <ul>
-            <li style={styles.list}>
-              <Link to={`{$this.props.url}`}>
-                <span style={styles.title}>{this.props.name}</span>
-              </Link>
-             </li>
-           </ul>
+          <li style={styles.list}>
+            <Link style={styles.links} to={`${this.props.url}`}>
+              <span style={styles.title}>{this.props.name}</span>
+            </Link>
+          </li>
         </div>
     )
   }

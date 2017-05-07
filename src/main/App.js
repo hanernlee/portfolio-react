@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { StyleRoot } from 'radium';
 import Navbar from '../components/Navbar/Navbar';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import Home from '../components/Home/Home';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Work from '../components/Work/Work';
 
 class App extends Component {
   render() {
     return (
       <StyleRoot>
-        <Router>
-          <Navbar />
+        <BrowserRouter>
           <div>
-            <Route exact path="/" component={Home}/>
+            <Navbar />
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/work" component={Work}/>
+              </Switch>
           </div>
-        </Router>
+        </BrowserRouter>
       </StyleRoot>
     )
   }
