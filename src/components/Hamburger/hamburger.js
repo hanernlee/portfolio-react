@@ -50,28 +50,24 @@ class Hamburger extends Component {
   }
 
   onMouseOver = () => {
-    if (!this.state.clicked) {
-      this.setState({
-        hover: true
-      });
-    }
+    this.setState({
+      hover: true
+    });
   }
 
   onMouseOut = () => {
-    if (!this.state.clicked) {
-      this.setState({
-        hover: false
-      });
-    }
+    this.setState({
+      hover: false
+    });
   }
 
   render() {
     return (
-        <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.base}>
+      <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.base}>
         <div style={styles.burgerContainer}>
-          <LayerTop clickBurger={this.state.clicked} hoverBurger={this.state.hover}/>
-          <LayerMiddle clickBurger={this.state.clicked} />
-          <LayerBottom clickBurger={this.state.clicked} hoverBurger={this.state.hover}/>
+          <LayerTop clickBurger={this.props.toggleBurger} hoverBurger={this.state.hover}/>
+          <LayerMiddle clickBurger={this.props.toggleBurger} />
+          <LayerBottom clickBurger={this.props.toggleBurger} hoverBurger={this.state.hover}/>
         </div>
       </button>
     );

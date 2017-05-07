@@ -17,7 +17,8 @@ const styles = {
     zIndex: '1'
   },
   hide: {
-    opacity: '0'
+    opacity: '0',
+    pointerEvents: 'none'
   },
   show: {
     opacitiy: '1'
@@ -25,12 +26,16 @@ const styles = {
 }
 
 class Canvas extends Component {
+  handleClick = () => {
+    this.props.onClick();
+  }
+
   render() {
     var canvasStyle = this.props.showCanvas ? styles.show : styles.hide;
 
     return (
       <div style={[canvasStyle, styles.base]}>
-        <div style={styles.canvasScreen}></div>
+        <div onClick={this.handleClick} style={styles.canvasScreen}></div>
       </div>
     );
   }

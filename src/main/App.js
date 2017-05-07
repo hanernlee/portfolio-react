@@ -10,6 +10,9 @@ class App extends Component {
       <StyleRoot>
         <Router>
           <Navbar />
+          <div>
+            <Route exact path="/" component={Home}/>
+          </div>
         </Router>
       </StyleRoot>
     )

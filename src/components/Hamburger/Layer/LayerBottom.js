@@ -9,9 +9,7 @@ const styles = {
     position: 'absolute',
     transition: 'all 0.3s ease',
     width: '24px',
-    opacity: '1'
-  },
-  burgerNonHover: {
+    opacity: '1',
     top: '20px'
   },
   burgerHover: {
@@ -32,7 +30,7 @@ class LayerBottom extends Component {
       );
     } else {
       return (
-        <div style={[styles.base, clickEffect, styles.burgerNonHover]}></div>
+        <div style={[styles.base, clickEffect]}></div>
       );
     }
   }

@@ -82,9 +82,9 @@ class Navbar extends Component {
       <div>
         <div style={styles.height}>
           <div style={[styles.base, this.state.navStyle]}>
-            <Canvas showCanvas={this.state.burgerClick} />
+            <Canvas onClick={this.handleClick} showCanvas={this.state.burgerClick} />
             <Menu showMenu={this.state.burgerClick} />
-            <Hamburger onClick={this.handleClick} />
+            <Hamburger onClick={this.handleClick} toggleBurger={this.state.burgerClick} />
           </div>
         </div>
       </div>

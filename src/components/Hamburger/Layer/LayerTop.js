@@ -9,8 +9,6 @@ const styles = {
     position: 'absolute',
     transition: 'all 0.3s ease',
     width: '24px',
-  },
-  burgerNonHover: {
     top: '0px'
   },
   burgerHover: {
@@ -32,7 +30,7 @@ class LayerTop extends Component {
       );
     } else {
       return (
-        <div style={[styles.base, clickEffect, styles.burgerNonHover]}></div>
+        <div style={[styles.base, clickEffect]}></div>
       );
     }
   }
