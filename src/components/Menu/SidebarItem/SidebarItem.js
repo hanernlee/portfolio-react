@@ -31,10 +31,14 @@ const styles = {
 }
 
 class SidebarItem extends Component {
+  itemClick = () => {
+    this.props.itemClick();
+  }
+
   render() {
     return (
         <div style={styles.base}>
-          <li style={styles.list}>
+          <li onClick={this.itemClick} style={styles.list}>
             <Link style={styles.links} to={`${this.props.url}`}>
               <span style={styles.title}>{this.props.name}</span>
             </Link>

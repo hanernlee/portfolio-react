@@ -30,12 +30,16 @@ const styles = {
 }
 
 class Menu extends Component {
+  itemClick = () => {
+    this.props.onClick();
+  }
+
   render() {
     var menuStyle = this.props.showMenu ? styles.show : styles.hide;
 
     return (
       <div style={[styles.base, menuStyle]}>
-        <Sidebar />
+        <Sidebar itemClick={this.itemClick}/>
       </div>
     );
   }

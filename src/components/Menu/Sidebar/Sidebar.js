@@ -11,12 +11,16 @@ const styles = {
 }
 
 class Sidebar extends Component {
+  itemClick = () => {
+    this.props.itemClick();
+  }
+
   render() {
     return (
       <div style={styles.base}>
-        <SidebarItem name="home" url="/" />
-        <SidebarItem name="work" url="/work" />
-        <SidebarItem name="contact" url="/contact" />
+        <SidebarItem itemClick={this.itemClick} name="home" url="/" />
+        <SidebarItem itemClick={this.itemClick} name="work" url="/work" />
+        <SidebarItem itemClick={this.itemClick} name="contact" url="/contact" />
       </div>
     )
   }

@@ -65,9 +65,9 @@ class Hamburger extends Component {
     return (
       <button onClick={this.handleClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} style={styles.base}>
         <div style={styles.burgerContainer}>
-          <LayerTop clickBurger={this.props.toggleBurger} hoverBurger={this.state.hover}/>
-          <LayerMiddle clickBurger={this.props.toggleBurger} />
-          <LayerBottom clickBurger={this.props.toggleBurger} hoverBurger={this.state.hover}/>
+          <LayerTop clickBurger={this.props.showBurger} hoverBurger={this.state.hover}/>
+          <LayerMiddle clickBurger={this.props.showBurger} />
+          <LayerBottom clickBurger={this.props.showBurger} hoverBurger={this.state.hover}/>
         </div>
       </button>
     );
