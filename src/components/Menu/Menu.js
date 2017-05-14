@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './sidebar/Sidebar';
 
 const styles = {
   base: {
@@ -35,11 +35,12 @@ class Menu extends Component {
   }
 
   render() {
+    const user = this.props.user;
     var menuStyle = this.props.showMenu ? styles.show : styles.hide;
 
     return (
       <div style={[styles.base, menuStyle]}>
-        <Sidebar itemClick={this.itemClick}/>
+        <Sidebar itemClick={this.itemClick} user={user}/>
       </div>
     );
   }

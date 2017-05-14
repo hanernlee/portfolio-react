@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import Canvas from '../Canvas/Canvas'
-import Menu from '../Menu/Menu'
-import Hamburger from '../Hamburger/Hamburger';
+import Canvas from '../canvas/Canvas'
+import Menu from '../menu/Menu'
+import Hamburger from '../hamburger/Hamburger';
 
 const styles = {
   base: {
@@ -36,7 +36,7 @@ const styles = {
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    //ES6 classess no longer autobind this to nonReact methods (manually bind below)
+
     this.state = {
       navStyle : styles.fixedBar,
       burgerClick : false
@@ -78,12 +78,14 @@ class Navbar extends Component {
   }
 
   render() {
+    const user = this.props.user;
+
     return (
       <div>
         <div style={styles.height}>
           <div style={[styles.base, this.state.navStyle]}>
             <Canvas onClick={this.handleClick} showCanvas={this.state.burgerClick} />
-            <Menu onClick={this.handleClick} showMenu={this.state.burgerClick} />
+            <Menu onClick={this.handleClick} showMenu={this.state.burgerClick} user={user} />
             <Hamburger onClick={this.handleClick} showBurger={this.state.burgerClick} />
           </div>
         </div>

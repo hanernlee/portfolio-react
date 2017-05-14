@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import LayerTop from './Layer/LayerTop';
-import LayerMiddle from './Layer/LayerMiddle';
-import LayerBottom from './Layer/LayerBottom';
+import LayerTop from './layer/LayerTop';
+import LayerMiddle from './layer/LayerMiddle';
+import LayerBottom from './layer/LayerBottom';
 
 const styles = {
   base: {

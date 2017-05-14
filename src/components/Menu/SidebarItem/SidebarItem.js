@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router-dom';
-import Home from '../../Home/Home';
 
 const styles = {
   base: {
@@ -31,19 +30,23 @@ const styles = {
 }
 
 class SidebarItem extends Component {
-  itemClick = () => {
+  itemClick = (e) => {
     this.props.itemClick();
+    if (e.target.dataset.id === "logout") {
+      console.log('here');
+      this.props.handleLogout();
+    }
   }
 
   render() {
     return (
-        <div style={styles.base}>
-          <li onClick={this.itemClick} style={styles.list}>
-            <Link style={styles.links} to={`${this.props.url}`}>
-              <span style={styles.title}>{this.props.name}</span>
-            </Link>
-          </li>
-        </div>
+      <div style={styles.base}>
+        <li onClick={this.itemClick} data-id={this.props.name} style={styles.list}>
+          <Link style={styles.links} to={`${this.props.url}`}>
+            <span style={styles.title} data-id={this.props.name}>{this.props.name}</span>
+          </Link>
+        </li>
+      </div>
     )
   }
 }
