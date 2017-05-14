@@ -55,23 +55,24 @@ class Login extends Component {
   }
 
   render () {
-    const user = this.state.user;
-    return (
-      <div style={styles.base}>
-        {user && (<Redirect to="/dashboard" />)}
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input key="email" style={styles.input} ref={(email) => this.email = email} />
-          </div>
-          <div>
-            <input key="password" style={styles.input} type="password" ref={(pw) => this.pw = pw} />
-          </div>
-          <div>
-            <button style={styles.button} type="submit"></button>
-          </div>
-        </form>
-      </div>
-    )
+    const loggedIn = this.state.loggedIn;
+
+      return (
+        <div style={styles.base}>
+          {loggedIn && (<Redirect to="/dashboard" />)}
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <input key="email" style={styles.input} ref={(email) => this.email = email} />
+            </div>
+            <div>
+              <input key="password" style={styles.input} type="password" ref={(pw) => this.pw = pw} />
+            </div>
+            <div>
+              <button style={styles.button} type="submit"></button>
+            </div>
+          </form>
+        </div>
+      )
   }
 }
 

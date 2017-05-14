@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { Redirect } from 'react-router';
-import { firebaseAuth } from '../../config/config';
 
 const styles = {
   base: {

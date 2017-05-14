@@ -21,7 +21,12 @@ class Sidebar extends Component {
   }
 
   handleLogout = () => {
-    firebaseAuth().signOut()
+    firebaseAuth().signOut();
+    for (let key in localStorage) {
+      if (key.startsWith("firebase:authUser:")) {
+        localStorage.removeItem(key)
+      }
+    }
   }
 
   itemClick = () => {
