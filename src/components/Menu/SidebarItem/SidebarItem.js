@@ -33,20 +33,19 @@ class SidebarItem extends Component {
   itemClick = (e) => {
     this.props.itemClick();
     if (e.target.dataset.id === "logout") {
-      console.log('here');
       this.props.handleLogout();
     }
   }
 
   render() {
     return (
-      <div style={styles.base}>
-        <li onClick={this.itemClick} data-id={this.props.name} style={styles.list}>
-          <Link style={styles.links} to={`${this.props.url}`}>
+      <Link style={styles.links} to={`${this.props.url}`}>
+        <div onClick={this.itemClick} style={styles.base}>
+          <li onClick={this.itemClick} data-id={this.props.name} style={styles.list}>
             <span style={styles.title} data-id={this.props.name}>{this.props.name}</span>
-          </Link>
-        </li>
-      </div>
+          </li>
+        </div>
+      </Link>
     )
   }
 }

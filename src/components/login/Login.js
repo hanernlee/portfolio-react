@@ -6,7 +6,7 @@ import { firebaseAuth } from '../../config/config';
 const styles = {
   base: {
     position: 'absolute',
-    top: '40%',
+    top: '25%',
     left: '50%',
     transform: 'translateX(-50%)'
   },

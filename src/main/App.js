@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleRoot } from 'radium';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { firebaseAuth } from '../config/config';
+import { firebaseAuth, isAuthenticated } from '../config/config';
 import Navbar from '../components/navbar/Navbar';
 import Home from '../components/home/Home';
 import Work from '../components/work/Work';
@@ -10,25 +10,40 @@ import Dashboard from '../components/dashboard/Dashboard';
 
 const storageKey = 'KEY_FOR_LOCAL_STORAGE';
 
-const isAuthenticated = () => {
-  if (!firebaseAuth().currentUser) {
-    let hasLocalStorageUser = false;
-    for (let key in localStorage) {
-      if (key.startsWith("firebase:authUser:")) {
-        hasLocalStorageUser = true;
-      }
+const styles = {
+  hide: {
+    minHeight: '100vh',
+    left: '0px',
+    paddingBottom: '60px',
+    position: 'relative',
+    transition: 'left 0.4s ease-in-out',
+
+    '@media (min-width: 720px)': {
+      paddingBottom: '80px'
     }
-    return hasLocalStorageUser;
+  },
+
+  show: {
+    minHeight: '100vh',
+    left: '-200px',
+    paddingBottom: '60px',
+    position: 'relative',
+    transition: 'left 1.2s cubic-bezier(0.43, 0.17, 0.28, 0.99)',
+
+    '@media (min-width: 720px)': {
+      left: '-300px',
+      paddingBottom: '80px'
+    }
   }
-  return true;
-};
+}
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: null
+      user: null,
+      style: styles.hide
     }
   }
 
@@ -50,6 +65,19 @@ class App extends Component {
     });
   }
 
+  toggleNav = (event) => {
+    console.log(event);
+    if (!event) {
+      this.setState({
+        style: styles.show
+      })
+    } else {
+      this.setState({
+        style: styles.hide
+      })
+    }
+  }
+
   render() {
     const user = this.state.user;
 
@@ -57,18 +85,20 @@ class App extends Component {
       <StyleRoot>
         <BrowserRouter>
           <div>
-            <Navbar user={user}/>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/work" component={Work} />
-                <Route path="/contact" />
-                <Route path="/login" render={() => (
-                  isAuthenticated() ? (<Redirect to="/dashboard"/>) : (<Login />)
-                )}/>
-                <Route path="/dashboard" render={() => (
-                  isAuthenticated() ? (<Dashboard />) : (<Redirect to="/login"/>)
-                )}/>
-              </Switch>
+            <Navbar toggleNav= {this.toggleNav} user={user}/>
+              <div style={this.state.style}>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/work" component={Work} />
+                  <Route path="/contact" />
+                  <Route path="/login" render={() => (
+                    isAuthenticated() ? (<Redirect to="/dashboard"/>) : (<Login />)
+                  )}/>
+                  <Route path="/dashboard" render={() => (
+                    isAuthenticated() ? (<Dashboard />) : (<Redirect to="/login"/>)
+                  )}/>
+                </Switch>
+              </div>
           </div>
         </BrowserRouter>
       </StyleRoot>

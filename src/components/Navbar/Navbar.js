@@ -52,6 +52,7 @@ class Navbar extends Component {
   }
 
   handleClick = () => {
+    this.props.toggleNav(this.state.burgerClick);
     if (this.state.burgerClick) {
       this.setState({
         burgerClick : false
