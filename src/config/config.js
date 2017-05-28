@@ -1,16 +1,16 @@
 import firebase from 'firebase';
 
-const storageKey = 'KEY_FOR_LOCAL_STORAGE';
-
 const config = {
-  apiKey: "AIzaSyADGr3LzOb-3RW-B-ou8OZEoLwd3SxnGpg",
-  authDomain: "my-portfolio-e2e2a.firebaseapp.com",
-  databaseURL: "https://my-portfolio-e2e2a.firebaseio.com",
+  apiKey: "AIzaSyDsNRj5VL7V4V0jvmTFnw4XuqPHgBsw6nQ",
+  authDomain: "hanernlee-f2fb5.firebaseapp.com",
+  databaseURL: "https://hanernlee-f2fb5.firebaseio.com",
+  storageBucket: "hanernlee-f2fb5.appspot.com"
 };
 
 firebase.initializeApp(config);
 
-export const ref = firebase.database().ref();
+export const database = firebase.database();
+export const storage = firebase.storage();
 export const firebaseAuth = firebase.auth;
 
 export const isAuthenticated = () => {

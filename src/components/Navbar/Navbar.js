@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router-dom';
 import Canvas from '../canvas/Canvas'
 import Menu from '../menu/Menu'
 import Hamburger from '../hamburger/Hamburger';
 
 const styles = {
   base: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '100%',
     paddingLeft: '25px',
     position: 'fixed',
     transition: 'all 0.3s ease',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderBottom: '1px solid rgb(255, 255, 255)',
+    borderBottom: '1px solid rgb(246, 246, 246)',
     height: 'inherit',
     zIndex: '1',
-
     '@media (min-width: 720px)': {
       paddingLeft: '40px'
     }
+  },
+  name: {
+    color: 'rgb(144, 144, 144)',
+    fontWeight: '400',
+    fontSize: '16px',
+    letterSpacing: '0.1px',
+    '@media (min-width: 720px)': {
+      fontSize: '20px',
+      letterSpacing: '0.2px',
+    }
+  },
+  links: {
+    textDecoration:'none'
   },
   height: {
     height: '60px',
@@ -44,11 +60,11 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+    // window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleClick = () => {
@@ -67,15 +83,15 @@ class Navbar extends Component {
   }
 
   handleScroll= () => {
-    if (document.body.scrollTop > 100) {
-      this.setState({
-        navStyle: styles.scrollBar
-      });
-    } else {
-      this.setState({
-        navStyle: styles.nonScrollBar
-      });
-    }
+    // if (document.body.scrollTop > 60) {
+    //   this.setState({
+    //     navStyle: styles.scrollBar
+    //   });
+    // } else {
+    //   this.setState({
+    //     navStyle: styles.nonScrollBar
+    //   });
+    // }
   }
 
   render() {
@@ -85,6 +101,9 @@ class Navbar extends Component {
       <div>
         <div style={styles.height}>
           <div style={[styles.base, this.state.navStyle]}>
+            <Link style={styles.links} to="/">
+              <div style={styles.name}>christopher lee</div>
+            </Link>
             <Canvas onClick={this.handleClick} showCanvas={this.state.burgerClick} />
             <Menu onClick={this.handleClick} showMenu={this.state.burgerClick} user={user} />
             <Hamburger onClick={this.handleClick} showBurger={this.state.burgerClick} />

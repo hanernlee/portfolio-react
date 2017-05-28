@@ -20,6 +20,7 @@ const styles = {
   }
 }
 
+
 class LayerBottom extends Component {
   render() {
     var clickEffect = this.props.clickBurger ? styles.burgerClick : '';

@@ -32,6 +32,7 @@ const styles = {
 class SidebarItem extends Component {
   itemClick = (e) => {
     this.props.itemClick();
+    window.scrollTo(0, 0);
     if (e.target.dataset.id === "logout") {
       this.props.handleLogout();
     }

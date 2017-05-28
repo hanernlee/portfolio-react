@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { database } from '../../config/config';
+// import Card from './card/Card';
 
 const styles = {
   base: {
-    left:'0',
-    position: 'relative',
-    transition: 'left 0.4s ease-in-out',
     backgroundColor: 'red',
-
-    '@media (min-width: 720px)': {
-      paddingBottom: '80px'
-    }
   }
 }
 
 class Work extends Component {
-  render() {
+  constructor(props) {
+    super(props);
 
-    return (
-      <div style={styles.base}>Work</div>
-    );
+    this.state = {
+      projects: null
+    }
+  }
+
+  componentDidMount() {
+    database.ref('work/').on('value', snapshot => {
+      this.setState({
+        projects: snapshot.val()
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    database.ref('work/').off();
+  }
+
+  render() {
+    const projects = this.state.projects;
+      return (
+        <div style={styles.base}> Code Stuff
+          <div>
+            {projects && Object.keys(projects).map((key, index) =>
+              <div key={index}>
+                <span>{projects[key].name}</span>
+                <span>{projects[key].github}</span>
+                <span>{projects[key].demo}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      );
   }
 }
 

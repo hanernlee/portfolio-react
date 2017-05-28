@@ -43,6 +43,7 @@ class App extends Component {
 
     this.state = {
       user: null,
+      projects: [],
       style: styles.hide
     }
   }
@@ -66,7 +67,6 @@ class App extends Component {
   }
 
   toggleNav = (event) => {
-    console.log(event);
     if (!event) {
       this.setState({
         style: styles.show
@@ -85,7 +85,7 @@ class App extends Component {
       <StyleRoot>
         <BrowserRouter>
           <div>
-            <Navbar toggleNav= {this.toggleNav} user={user}/>
+            <Navbar toggleNav={this.toggleNav} user={user}/>
               <div style={this.state.style}>
                 <Switch>
                   <Route exact path="/" component={Home} />
