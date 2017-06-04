@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Link, Route } from 'react-router-dom';
 import PostNew from '../content/postNew';
+import WorkNew from '../content/workNew';
+import ShowWork from '../content/showWork';
 
 const styles = {
   base: {
@@ -59,19 +61,54 @@ const styles = {
 }
 
 class DisplayDashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      post: true
+    }
+  }
+
+  toggleButton = () => {
+    const post = this.state.post;
+    if (post) {
+      this.setState({
+        post: false
+      });
+    } else {
+      this.setState({
+        post: true
+      });
+    }
+  }
+
   render() {
+    const post = this.state.post;
+    if (post) {
+      var highlightPost = styles.selected;
+    } else {
+      var highlightWork = styles.selected;
+    }
+
     return (
       <div style={styles.base}>
-        <div style={styles.buttonContainer}>
-          <Link style={styles.links} to="/dashboard/post/new">
-            <div key="post" style={styles.button}>Post</div>
-          </Link>
-          <div key="work" style={styles.button}>Work</div>
-        </div>
-        <div style={styles.content}>
-          <Switch>
-            <Route path="/dashboard/post/new" component={PostNew} />
-          </Switch>
+        <div>
+          <div style={styles.buttonContainer}>
+            <Link style={styles.links} to="/dashboard/post/new">
+              <div key="post" style={[styles.button, highlightPost]} onClick={this.toggleButton}>Post</div>
+            </Link>
+            <Link style={styles.links} to="/dashboard/work/new">
+              <div key="work" style={[styles.button, highlightWork]} onClick={this.toggleButton}>Work</div>
+            </Link>
+          </div>
+          <div style={styles.content}>
+            <Switch>
+              <Route path="/dashboard/post/new" component={PostNew} />
+              <Route path="/dashboard/work/new" component={WorkNew} />
+              <Route path="/dashboard/work/:id" component={ShowWork} />
+              <Route path="/dashboard" component={PostNew} />
+            </Switch>
+          </div>
         </div>
       </div>
     );

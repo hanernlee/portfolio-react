@@ -18,10 +18,6 @@ const styles = {
 }
 
 class Dashboard extends Component {
-  componentDidMount() {
-    document.body.style.overflow = "hidden";
-  }
-
   render() {
     return (
       <div style={styles.base}>

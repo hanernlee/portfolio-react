@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router-dom';
 import { database } from '../../../config/config';
 
 const styles = {
@@ -47,15 +48,16 @@ class DisplayMenu extends Component {
 
   render() {
     const projects = this.state.projects;
-
     return (
       <div style={styles.base}>
         <div style={styles.list}>
           <div style={styles.postTitle}>
             {projects && Object.keys(projects).map((key, index) =>
-              <div key={index}>
-                <span>{projects[key].name}</span>
-              </div>
+              <Link key={projects[key].id} to={`/dashboard/work/${projects[key].id}`}>
+                <div>
+                  <span>{projects[key].title}</span>
+                </div>
+              </Link>
             )}
           </div>
         </div>
