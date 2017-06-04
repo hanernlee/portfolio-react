@@ -34,31 +34,62 @@ const styles = {
 }
 
 class DisplayMenu extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      work: null,
+      post: null
+
+    }
+  }
+
   componentDidMount() {
-    database.ref('work/').on('value', snapshot => {
+    database.ref('/work/').on('value', snapshot => {
       this.setState({
-        projects: snapshot.val()
+        work: snapshot.val()
+      });
+    });
+    database.ref('/post/').on('value', snapshot => {
+      this.setState({
+        post: snapshot.val()
       });
     });
   }
 
   componentWillUnmount() {
-    database.ref('work/').off();
+    database.ref('work').off();
+    database.ref('post').off();
   }
 
   render() {
-    const projects = this.state.projects;
+    const work = this.state.work;
+    const post = this.state.post;
+
     return (
       <div style={styles.base}>
         <div style={styles.list}>
           <div style={styles.postTitle}>
-            {projects && Object.keys(projects).map((key, index) =>
-              <Link key={projects[key].id} to={`/dashboard/work/${projects[key].id}`}>
-                <div>
-                  <span>{projects[key].title}</span>
-                </div>
-              </Link>
-            )}
+            <div>
+              <h4>Work</h4>
+              {work && Object.keys(work).map((key, index) =>
+                <Link key={work[key].id} to={`/dashboard/work/${work[key].id}`}>
+                  <div>
+                    <span>{work[key].title}</span>
+                  </div>
+                </Link>
+              )}
+            </div>
+            <div>
+              <h4>Post</h4>
+              {post && Object.keys(post).map((key, index) =>
+                <Link key={post[key].id} to={`/dashboard/post/${post[key].id}`}>
+                  <div>
+                    <span>{post[key].title}</span>
+                  </div>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

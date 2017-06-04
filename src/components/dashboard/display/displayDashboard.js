@@ -4,6 +4,7 @@ import { Switch, Link, Route } from 'react-router-dom';
 import PostNew from '../content/postNew';
 import WorkNew from '../content/workNew';
 import ShowWork from '../content/showWork';
+import ShowPost from '../content/showPost';
 
 const styles = {
   base: {
@@ -105,6 +106,7 @@ class DisplayDashboard extends Component {
             <Switch>
               <Route path="/dashboard/post/new" component={PostNew} />
               <Route path="/dashboard/work/new" component={WorkNew} />
+              <Route path="/dashboard/post/:id" component={ShowPost} />
               <Route path="/dashboard/work/:id" component={ShowWork} />
               <Route path="/dashboard" component={PostNew} />
             </Switch>

@@ -26,7 +26,7 @@ class WorkNew extends Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    var newPostKey = database.ref().child('work').push().key;
+    var newPostKey = database.ref('/work').push().key;
 
     const project = {
       id: newPostKey,

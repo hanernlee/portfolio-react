@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { database } from '../../../config/config';
 
 const styles = {
   base: {
@@ -23,6 +24,23 @@ class PostNew extends Component {
      });
   }
 
+  submitForm = (e) => {
+    e.preventDefault();
+    var newPostKey = database.ref('/post').push().key;
+
+    const project = {
+      id: newPostKey,
+      title: this.state.title,
+      tags: this.state.tags,
+      content: this.state.content
+    }
+
+    var updates = {};
+    updates['/post/' + newPostKey] = project;
+
+    return database.ref().update(updates);
+  }
+
   render() {
     return (
       <div>
@@ -39,6 +57,7 @@ class PostNew extends Component {
             <label>Content</label>
             <textarea type="textarea" name="content" onChange={this.handleInputChange} style={styles.input}/>
           </div>
+          <button type="submit" onClick={this.submitForm}>Submit</button>
         </form>
       </div>
     );

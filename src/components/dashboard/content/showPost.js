@@ -14,35 +14,33 @@ const styles = {
   }
 }
 
-class ShowWork extends Component {
+class ShowPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       id: '',
       title: '',
-      image: '',
-      demo: '',
-      github: ''
+      tags: '',
+      content: ''
     }
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    database.ref('/work/' + id).on('value', snapshot => {
+    database.ref('/post/' + id).on('value', snapshot => {
       this.setState({
         id: snapshot.val().id,
         title: snapshot.val().title,
-        image: snapshot.val().image,
-        demo: snapshot.val().demo,
-        github: snapshot.val().github
+        tags: snapshot.val().tags,
+        content: snapshot.val().content
       });
     });
   }
 
   componentWillUnmount() {
     const { id } = this.props.match.params;
-    database.ref('/work/' + id).off();
+    database.ref('/post/' + id).off();
   }
 
   handleInputChange = (e) => {
@@ -56,14 +54,13 @@ class ShowWork extends Component {
 
   updateForm = (e) => {
     e.preventDefault();
-    database.ref('/work/' + this.state.id)
+    database.ref('/post/' + this.state.id)
       .update({
         title: this.state.title,
-        image: this.state.image,
-        demo: this.state.demo,
-        github: this.state.github
+        tags: this.state.tags,
+        content: this.state.content
       });
-    database.ref('/work/' + this.state.id).off();
+    database.ref('/post/' + this.state.id).off();
   }
 
   render() {
@@ -73,20 +70,16 @@ class ShowWork extends Component {
       <div>
         <form>
           <div style={styles.base}>
-            <label>Project</label>
+            <label>Title</label>
             <input type="text" name="title" value={project.title} onChange={this.handleInputChange} style={styles.input}/>
           </div>
           <div style={styles.base}>
-            <label>Image</label>
-            <input type="text" name="image" value={project.image} onChange={this.handleInputChange} style={styles.input}/>
+            <label>Tags</label>
+            <input type="text" name="tags" value={project.tags} onChange={this.handleInputChange} style={styles.input}/>
           </div>
           <div style={styles.base}>
-            <label>Demo</label>
-            <input type="text" name="demo" value={project.demo} onChange={this.handleInputChange} style={styles.input}/>
-          </div>
-          <div style={styles.base}>
-            <label>GitHub</label>
-            <input type="text" name="github" value={project.github} onChange={this.handleInputChange} style={styles.input}/>
+            <label>Content</label>
+            <textarea type="textarea" name="content" value={project.content} onChange={this.handleInputChange} style={styles.input}/>
           </div>
           <button type="submit" onClick={this.updateForm}>Update</button>
         </form>
@@ -95,4 +88,4 @@ class ShowWork extends Component {
   }
 }
 
-export default Radium(ShowWork);
+export default Radium(ShowPost);

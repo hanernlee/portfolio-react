@@ -19,7 +19,7 @@ class Work extends Component {
   }
 
   componentDidMount() {
-    database.ref('work/').on('value', snapshot => {
+    database.ref('work').on('value', snapshot => {
       this.setState({
         projects: snapshot.val()
       });
@@ -27,7 +27,7 @@ class Work extends Component {
   }
 
   componentWillUnmount() {
-    database.ref('work/').off();
+    database.ref('work').off();
   }
 
   render() {
