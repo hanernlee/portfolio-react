@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import DisplayDashboard from './display/displayDashboard';
+import DisplayMenu from './display/displayMenu';
+
 
 const styles = {
   base: {
     left:'0',
     position: 'relative',
     transition: 'left 0.4s ease-in-out',
-    backgroundColor: 'yellow',
-
-    '@media (min-width: 720px)': {
-      paddingBottom: '80px'
-    }
+  },
+  container: {
+    display: 'flex',
+    margin: '0px auto',
+    maxWidth: '1360px',
   }
 }
 
 class Dashboard extends Component {
+  componentDidMount() {
+    document.body.style.overflow = "hidden";
+  }
+
   render() {
     return (
-      <div style={styles.base}>Dashboard</div>
+      <div style={styles.base}>
+          <div style={styles.container}>
+            <DisplayDashboard />
+            <DisplayMenu />
+          </div>
+      </div>
     );
   }
 }

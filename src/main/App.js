@@ -12,27 +12,25 @@ const storageKey = 'KEY_FOR_LOCAL_STORAGE';
 
 const styles = {
   hide: {
-    minHeight: '100vh',
+    minHeight: 'calc(100vh - 60px)',
     left: '0px',
-    paddingBottom: '60px',
     position: 'relative',
     transition: 'left 0.4s ease-in-out',
 
     '@media (min-width: 720px)': {
-      paddingBottom: '80px'
+      minHeight: 'calc(100vh - 80px)',
     }
   },
 
   show: {
-    minHeight: '100vh',
+    minHeight: 'calc(100vh - 60px)',
     left: '-200px',
-    paddingBottom: '60px',
     position: 'relative',
     transition: 'left 1.2s cubic-bezier(0.43, 0.17, 0.28, 0.99)',
 
     '@media (min-width: 720px)': {
+      minHeight: 'calc(100vh - 80px)',
       left: '-300px',
-      paddingBottom: '80px'
     }
   }
 }

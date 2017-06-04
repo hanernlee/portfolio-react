@@ -9,7 +9,7 @@ const styles = {
     transition: 'left 0.4s ease-in-out',
 
     '@media (min-width: 720px)': {
-      paddingBottom: '80px'
+      // paddingBottom: '80px'
     }
   },
   container: {
