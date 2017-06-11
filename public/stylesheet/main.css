@@ -10,9 +10,15 @@ ul {
   padding:0;
 }
 
-/*input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-}*/
+input[type="file"] {
+  -webkit-appearance: textfield;
+  background-color: white;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: rgb(238, 238, 238);
+  border-image: initial;
+}
 
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
@@ -26,4 +32,10 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+progress[value] {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
 }

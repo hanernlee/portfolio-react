@@ -71,7 +71,7 @@ class DisplayMenu extends Component {
         <div style={styles.list}>
           <div style={styles.postTitle}>
             <div>
-              <h4>Work</h4>
+              <h3>Work</h3>
               {work && Object.keys(work).map((key, index) =>
                 <Link key={work[key].id} to={`/dashboard/work/${work[key].id}`}>
                   <div>
@@ -81,7 +81,7 @@ class DisplayMenu extends Component {
               )}
             </div>
             <div>
-              <h4>Post</h4>
+              <h3>Post</h3>
               {post && Object.keys(post).map((key, index) =>
                 <Link key={post[key].id} to={`/dashboard/post/${post[key].id}`}>
                   <div>

@@ -51,6 +51,7 @@ const styles = {
   },
   content: {
     marginTop: '50px',
+    marginBottom: '50px',
     paddingLeft: '25px',
     paddingRight: '25px',
 
@@ -70,9 +71,20 @@ class DisplayDashboard extends Component {
     }
   }
 
-  toggleButton = () => {
-    const post = this.state.post;
-    if (post) {
+  toggleButton = (type) => {
+    if (type === "work") {
+      this.setState({
+        post: false
+      });
+    } else {
+      this.setState({
+        post: true
+      });
+    }
+  }
+
+  toggleType = (type) => {
+    if (type === "work") {
       this.setState({
         post: false
       });
@@ -84,8 +96,8 @@ class DisplayDashboard extends Component {
   }
 
   render() {
-    const post = this.state.post;
-    if (post) {
+    const type = this.state.post;
+    if (type) {
       var highlightPost = styles.selected;
     } else {
       var highlightWork = styles.selected;
@@ -96,19 +108,39 @@ class DisplayDashboard extends Component {
         <div>
           <div style={styles.buttonContainer}>
             <Link style={styles.links} to="/dashboard/post/new">
-              <div key="post" style={[styles.button, highlightPost]} onClick={this.toggleButton}>Post</div>
+              <div key="post" style={[styles.button, highlightPost]}
+                onClick={() => {
+                  this.toggleButton('post')
+                }}>
+                Post
+              </div>
             </Link>
             <Link style={styles.links} to="/dashboard/work/new">
-              <div key="work" style={[styles.button, highlightWork]} onClick={this.toggleButton}>Work</div>
+              <div key="work" style={[styles.button, highlightWork]}
+                onClick={() => {
+                  this.toggleButton('work')
+                }}>
+                Work
+              </div>
             </Link>
           </div>
           <div style={styles.content}>
             <Switch>
-              <Route path="/dashboard/post/new" component={PostNew} />
-              <Route path="/dashboard/work/new" component={WorkNew} />
-              <Route path="/dashboard/post/:id" component={ShowPost} />
-              <Route path="/dashboard/work/:id" component={ShowWork} />
-              <Route path="/dashboard" component={PostNew} />
+              <Route path="/dashboard/post/new" render={(props) => (
+                <PostNew toggleType={this.toggleType} {...props} />
+              )} />
+              <Route path="/dashboard/work/new" render={(props) => (
+                <WorkNew toggleType={this.toggleType} {...props} />
+              )} />
+              <Route path="/dashboard/post/:id" render={(props) => (
+                <ShowPost toggleType={this.toggleType} {...props} />
+              )} />
+              <Route path="/dashboard/work/:id" render={(props) => (
+                <ShowWork toggleType={this.toggleType} {...props} />
+              )} />
+              <Route path="/dashboard/" render={(props) => (
+                <PostNew toggleType={this.toggleType} {...props} />
+              )} />
             </Switch>
           </div>
         </div>

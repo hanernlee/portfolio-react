@@ -15,6 +15,10 @@ const styles = {
 }
 
 class PostNew extends Component {
+  componentDidMount() {
+    this.props.toggleType('post');
+  }
+
   handleInputChange = (e) => {
     const target = e.target;
     const value = e.target.value

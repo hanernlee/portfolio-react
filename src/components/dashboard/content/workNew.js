@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { database } from '../../../config/config';
+import { database, storage } from '../../../config/config';
 
 const styles = {
   base: {
@@ -11,10 +11,24 @@ const styles = {
   input: {
     flex: '1',
     padding: '11px'
-  }
+  },
 }
 
 class WorkNew extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      file: '',
+      image: '',
+      value: 0
+    }
+  }
+
+  componentDidMount() {
+    this.props.toggleType('work');
+  }
+
   handleInputChange = (e) => {
     const target = e.target;
     const value = e.target.value
@@ -24,6 +38,30 @@ class WorkNew extends Component {
      });
   }
 
+  handleFileUpload = (e) => {
+    this.setState({
+      file: e.target.files[0]
+    })
+  }
+
+  uploadImage = (e) => {
+    e.preventDefault();
+
+    const file = this.state.file;
+    var storageRef = storage.ref('work/' + file.name);
+
+    var task = storageRef.put(file);
+
+    task.on('state_changed', (snapshot) => {
+        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.setState({
+          value: percentage,
+          image: task.snapshot.downloadURL
+        });
+      }
+    )
+  }
+
   submitForm = (e) => {
     e.preventDefault();
     var newPostKey = database.ref('/work').push().key;
@@ -31,7 +69,7 @@ class WorkNew extends Component {
     const project = {
       id: newPostKey,
       title: this.state.title,
-      image: '',
+      image: this.state.image,
       demo: this.state.demo,
       github: this.state.github
     }
@@ -43,6 +81,8 @@ class WorkNew extends Component {
   }
 
   render() {
+    const value = this.state.value;
+
     return (
       <div>
         <form>
@@ -52,7 +92,9 @@ class WorkNew extends Component {
           </div>
           <div style={styles.base}>
             <label>Image</label>
-            <input type="text" name="image" onChange={this.handleInputChange} style={styles.input}/>
+            <input type="file" name="image" onChange={this.handleFileUpload} style={styles.input} />
+            <progress value={value} max="100"></progress>
+            <button onClick={this.uploadImage}>Upload</button>
           </div>
           <div style={styles.base}>
             <label>Demo</label>

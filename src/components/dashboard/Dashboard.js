@@ -23,7 +23,7 @@ class Dashboard extends Component {
       <div style={styles.base}>
           <div style={styles.container}>
             <DisplayDashboard />
-            <DisplayMenu />
+            <DisplayMenu/>
           </div>
       </div>
     );

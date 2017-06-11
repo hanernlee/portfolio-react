@@ -36,6 +36,7 @@ class ShowPost extends Component {
         content: snapshot.val().content
       });
     });
+    this.props.toggleType('post');
   }
 
   componentWillUnmount() {
