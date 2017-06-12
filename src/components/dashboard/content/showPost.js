@@ -10,7 +10,33 @@ const styles = {
   },
   input: {
     flex: '1',
-    padding: '11px'
+    padding: '11px',
+    borderStyle: 'groove',
+  },
+  button: {
+    marginTop: '20px',
+    marginRight: '20px',
+    width: '100px',
+    padding: '10px',
+    color: 'rgb(184, 184, 184)',
+    backgroundColor: 'white',
+    fontSize: '12px',
+    transition: '0.4s ease all',
+    cursor: 'pointer',
+
+    ":hover": {
+      backgroundColor: 'rgb(184, 184, 184)',
+      color: 'white'
+    }
+  },
+  deleteBtn: {
+    backgroundColor: '#b30000',
+    borderColor: '#b30000',
+
+    ":hover": {
+      backgroundColor: '#e60000',
+      borderColor: '#e60000'
+    }
   }
 }
 
@@ -28,7 +54,7 @@ class ShowPost extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    database.ref('/post/' + id).on('value', snapshot => {
+    database.ref('/post/' + id).once('value', snapshot => {
       this.setState({
         id: snapshot.val().id,
         title: snapshot.val().title,
@@ -44,6 +70,18 @@ class ShowPost extends Component {
     database.ref('/post/' + id).off();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps.match.params;
+    database.ref('/post/' + id).once('value', snapshot => {
+      this.setState({
+        id: snapshot.val().id,
+        title: snapshot.val().title,
+        tags: snapshot.val().tags,
+        content: snapshot.val().content
+      });
+    });
+  }
+
   handleInputChange = (e) => {
     const target = e.target;
     const value = e.target.value
@@ -55,6 +93,7 @@ class ShowPost extends Component {
 
   updateForm = (e) => {
     e.preventDefault();
+
     database.ref('/post/' + this.state.id)
       .update({
         title: this.state.title,
@@ -62,6 +101,13 @@ class ShowPost extends Component {
         content: this.state.content
       });
     database.ref('/post/' + this.state.id).off();
+  }
+
+  deleteWork = (e) => {
+    e.preventDefault();
+
+    database.ref('/post/' + this.state.id).remove();
+    this.props.history.push('/dashboard/post/new');
   }
 
   render() {
@@ -82,7 +128,8 @@ class ShowPost extends Component {
             <label>Content</label>
             <textarea type="textarea" name="content" value={project.content} onChange={this.handleInputChange} style={styles.input}/>
           </div>
-          <button type="submit" onClick={this.updateForm}>Update</button>
+          <button key="update" style={styles.button} type="submit" onClick={this.updateForm}>Update</button>
+          <button key="delete" style={[styles.button, styles.deleteBtn]} onClick={this.deleteWork}>Delete</button>
         </form>
       </div>
     );

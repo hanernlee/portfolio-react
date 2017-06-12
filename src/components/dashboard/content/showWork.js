@@ -10,7 +10,33 @@ const styles = {
   },
   input: {
     flex: '1',
-    padding: '11px'
+    padding: '11px',
+    borderStyle: 'groove'
+  },
+  button: {
+    marginTop: '20px',
+    marginRight: '20px',
+    width: '100px',
+    padding: '10px',
+    color: 'rgb(184, 184, 184)',
+    backgroundColor: 'white',
+    fontSize: '12px',
+    transition: '0.4s ease all',
+    cursor: 'pointer',
+
+    ":hover": {
+      backgroundColor: 'rgb(184, 184, 184)',
+      color: 'white'
+    }
+  },
+  deleteBtn: {
+    backgroundColor: '#b30000',
+    borderColor: '#b30000',
+
+    ":hover": {
+      backgroundColor: '#e60000',
+      borderColor: '#e60000'
+    }
   }
 }
 
@@ -31,7 +57,7 @@ class ShowWork extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    database.ref('/work/' + id).on('value', snapshot => {
+    database.ref('/work/' + id).once('value', snapshot => {
       this.setState({
         id: snapshot.val().id,
         title: snapshot.val().title,
@@ -80,14 +106,21 @@ class ShowWork extends Component {
     e.preventDefault();
 
     const file = this.state.file;
-    console.log(file);
-    var storageRef = storage.ref('work/' + file.name);
+    var randomKey = database.ref('/work').push().key;
+    var storageRef = storage.ref(`work/${randomKey}-${file.name}`);
     var task = storageRef.put(file);
 
     task.on('state_changed', (snapshot) => {
-        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        var percentage = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         this.setState({
-          value: percentage,
+          value: percentage
+        });
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        this.setState({
           image: task.snapshot.downloadURL
         });
       }
@@ -107,6 +140,13 @@ class ShowWork extends Component {
     database.ref('/work/' + this.state.id).off();
   }
 
+  deleteWork = (e) => {
+    e.preventDefault();
+
+    database.ref('/work/' + this.state.id).remove();
+    this.props.history.push('/dashboard/work/new');
+  }
+
   render() {
     const project = this.state;
     const value = this.state.value;
@@ -116,7 +156,8 @@ class ShowWork extends Component {
       backgroundRepeat: 'no-repeat',
       backgroundPosition: '0px 0px',
       height: '250px',
-      width: '100%'
+      width: '100%',
+      margin: '20px auto'
     }
 
     if (!project.title) {
@@ -132,10 +173,10 @@ class ShowWork extends Component {
           </div>
           <div style={styles.base}>
             <label>Replace Image</label>
-            <div style={bgImage}></div>
+            {project.image ? (<div style={bgImage}></div>) : (<div>Loading...</div>)}
             <input type="file" name="image" onChange={this.handleFileUpload} style={styles.input} />
             <progress value={value} max="100"></progress>
-            <button onClick={this.uploadImage}>Upload</button>
+            <button key="upload" style={[styles.button, styles.normalBtn]} onClick={this.uploadImage}>{value > 0 && value < 100 ? (`${value}%`) : ('Upload')}</button>
           </div>
           <div style={styles.base}>
             <label>Demo</label>
@@ -145,7 +186,8 @@ class ShowWork extends Component {
             <label>GitHub</label>
             <input type="text" name="github" value={project.github} onChange={this.handleInputChange} style={styles.input}/>
           </div>
-          <button type="submit" onClick={this.updateForm}>Update</button>
+          <button key="update" style={[styles.button, styles.normalBtn]} onClick={this.updateForm}>Update</button>
+          <button style={[styles.button, styles.deleteBtn]} onClick={this.deleteWork}>Delete</button>
         </form>
       </div>
     );

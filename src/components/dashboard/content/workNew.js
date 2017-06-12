@@ -10,7 +10,24 @@ const styles = {
   },
   input: {
     flex: '1',
-    padding: '11px'
+    padding: '11px',
+    borderStyle: 'groove',
+  },
+  button: {
+    marginTop: '20px',
+    marginRight: '20px',
+    width: '100px',
+    padding: '10px',
+    color: 'rgb(184, 184, 184)',
+    backgroundColor: 'white',
+    fontSize: '12px',
+    transition: '0.4s ease all',
+    cursor: 'pointer',
+
+    ":hover": {
+      backgroundColor: 'rgb(184, 184, 184)',
+      color: 'white'
+    }
   },
 }
 
@@ -48,14 +65,21 @@ class WorkNew extends Component {
     e.preventDefault();
 
     const file = this.state.file;
-    var storageRef = storage.ref('work/' + file.name);
-
+    var randomKey = database.ref('/work').push().key;
+    var storageRef = storage.ref(`work/${randomKey}-${file.name}`);
     var task = storageRef.put(file);
 
     task.on('state_changed', (snapshot) => {
-        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        var percentage = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         this.setState({
-          value: percentage,
+          value: percentage
+        });
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        this.setState({
           image: task.snapshot.downloadURL
         });
       }
@@ -75,9 +99,10 @@ class WorkNew extends Component {
     }
 
     var updates = {};
-    updates['/work/' + newPostKey] = project;
+    updates[`/work/${newPostKey}`] = project;
 
-    return database.ref().update(updates);
+    database.ref().update(updates);
+    this.props.history.push(`/dashboard/work/${newPostKey}`);
   }
 
   render() {
@@ -94,7 +119,7 @@ class WorkNew extends Component {
             <label>Image</label>
             <input type="file" name="image" onChange={this.handleFileUpload} style={styles.input} />
             <progress value={value} max="100"></progress>
-            <button onClick={this.uploadImage}>Upload</button>
+            <button key="upload" style={[styles.button, styles.normalBtn]} onClick={this.uploadImage}>{value > 0 && value < 100 ? (`${value}%`) : ('Upload')}</button>
           </div>
           <div style={styles.base}>
             <label>Demo</label>
@@ -104,7 +129,7 @@ class WorkNew extends Component {
             <label>GitHub</label>
             <input type="text" name="github" onChange={this.handleInputChange} style={styles.input}/>
           </div>
-          <button type="submit" onClick={this.submitForm}>Submit</button>
+          <button key="submit" style={styles.button} type="submit" onClick={this.submitForm}>Submit</button>
         </form>
       </div>
     );

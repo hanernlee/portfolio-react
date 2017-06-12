@@ -37,7 +37,7 @@ class Work extends Component {
           <div>
             {projects && Object.keys(projects).map((key, index) =>
               <div key={index}>
-                <span>{projects[key].name}</span>
+                <span>{projects[key].title}</span>
                 <span>{projects[key].github}</span>
                 <span>{projects[key].demo}</span>
               </div>

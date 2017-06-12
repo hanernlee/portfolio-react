@@ -10,7 +10,24 @@ const styles = {
   },
   input: {
     flex: '1',
-    padding: '11px'
+    padding: '11px',
+    borderStyle: 'groove',
+  },
+  button: {
+    marginTop: '20px',
+    marginRight: '20px',
+    width: '100px',
+    padding: '10px',
+    color: 'rgb(184, 184, 184)',
+    backgroundColor: 'white',
+    fontSize: '12px',
+    transition: '0.4s ease all',
+    cursor: 'pointer',
+
+    ":hover": {
+      backgroundColor: 'rgb(184, 184, 184)',
+      color: 'white'
+    }
   }
 }
 
@@ -30,6 +47,7 @@ class PostNew extends Component {
 
   submitForm = (e) => {
     e.preventDefault();
+
     var newPostKey = database.ref('/post').push().key;
 
     const project = {
@@ -42,7 +60,8 @@ class PostNew extends Component {
     var updates = {};
     updates['/post/' + newPostKey] = project;
 
-    return database.ref().update(updates);
+    database.ref().update(updates);
+    this.props.history.push('/dashboard/post/' + newPostKey);
   }
 
   render() {
@@ -61,7 +80,7 @@ class PostNew extends Component {
             <label>Content</label>
             <textarea type="textarea" name="content" onChange={this.handleInputChange} style={styles.input}/>
           </div>
-          <button type="submit" onClick={this.submitForm}>Submit</button>
+          <button style={styles.button} type="submit" onClick={this.submitForm}>Submit</button>
         </form>
       </div>
     );
