@@ -29,6 +29,10 @@ const styles = {
       color: 'white'
     }
   },
+  upload: {
+    opacity: '0.2',
+    pointerEvents: 'none'
+  }
 }
 
 class WorkNew extends Component {
@@ -129,7 +133,10 @@ class WorkNew extends Component {
             <label>GitHub</label>
             <input type="text" name="github" onChange={this.handleInputChange} style={styles.input}/>
           </div>
-          <button key="submit" style={styles.button} type="submit" onClick={this.submitForm}>Submit</button>
+          {value === 100 ?
+            (<button key="submit" style={styles.button} type="submit" onClick={this.submitForm}>Submit</button>)
+            :
+            (<button key="submit" style={[styles.button, styles.upload]} type="submit" onClick={this.submitForm}>Submit</button>)}
         </form>
       </div>
     );
